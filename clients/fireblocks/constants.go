@@ -1,0 +1,8 @@
+package fireblocks
+
+const (
+	OPERATION_RAW        = "RAW"
+	OPERATION_TRANSFER   = "TRANSFER"
+	TARGET_VAULT_ACCOUNT = "VAULT_ACCOUNT"
+	INVALID_ASSET_CODE   = "code:1503"
+)

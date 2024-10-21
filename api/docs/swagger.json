@@ -1,0 +1,2489 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/api/v1/blockchains": {
+            "get": {
+                "description": "retrieve the list of supported blockchains",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blockchains"
+                ],
+                "summary": "Get the blockchains list",
+                "operationId": "get-blockchains",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/blockchains.Blockchain"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create a new blockchain",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blockchains"
+                ],
+                "summary": "Create a new blockchain",
+                "operationId": "post-blockchains",
+                "parameters": [
+                    {
+                        "description": "Blockchain data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.SaveBlockchainRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "update a blockchain",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blockchains"
+                ],
+                "summary": "Update a blockchain",
+                "operationId": "patch-blockchains",
+                "parameters": [
+                    {
+                        "description": "Blockchain data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.EditBlockchainRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/blockchains/{id}": {
+            "get": {
+                "description": "retrieve a supported blockchain by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blockchains"
+                ],
+                "summary": "Get a blockchain",
+                "operationId": "get-blockchain-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Blockchain ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/blockchains.Blockchain"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete a blockchain",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blockchains"
+                ],
+                "summary": "Delete a blockchain",
+                "operationId": "delete-blockchains",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Blockchain ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/blockchains/{id}/tokens": {
+            "get": {
+                "description": "retrieve the list of tokens for a blockchain",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blockchains"
+                ],
+                "summary": "Get the blockchain tokens list",
+                "operationId": "get-blockchains-tokens",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Blockchain ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/tokens.Token"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/fireblocks-accounts": {
+            "get": {
+                "description": "retrieve the list of fireblocks accounts",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FireblocksAccounts"
+                ],
+                "summary": "Get the fireblocks accounts list",
+                "operationId": "get-fireblocks-accounts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/fireblocks.FireblocksAccount"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create a new fireblocks account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FireblocksAccounts"
+                ],
+                "summary": "Create a new fireblocks account",
+                "operationId": "post-fireblocks-accounts",
+                "parameters": [
+                    {
+                        "description": "Fireblocks Account",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.SaveFireblocksAccountRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/fireblocks-accounts/vault/{vault_id}": {
+            "get": {
+                "description": "retrieve a fireblocks account by vault id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FireblocksAccounts"
+                ],
+                "summary": "Get a fireblocks account",
+                "operationId": "get-fireblocks-accounts-by-vault-id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/fireblocks.FireblocksAccount"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/fireblocks-accounts/{id}": {
+            "get": {
+                "description": "retrieve a fireblocks account by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FireblocksAccounts"
+                ],
+                "summary": "Get a fireblocks account",
+                "operationId": "get-fireblocks-accounts-by-id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/fireblocks.FireblocksAccount"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete a fireblocks account",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FireblocksAccounts"
+                ],
+                "summary": "Delete a fireblocks account",
+                "operationId": "delete-fireblocks-accounts",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Fireblocks Account ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/operations": {
+            "get": {
+                "description": "retrieve the list of operations",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operations"
+                ],
+                "summary": "Get the operations list",
+                "operationId": "get-operations",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Filter parameter",
+                        "name": "filter_param",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter value",
+                        "name": "filter_value",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort field",
+                        "name": "sort_field",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort order",
+                        "name": "sort_order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/repositories.PaginatedOperations"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create a new operation",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operations"
+                ],
+                "summary": "Create a new operation",
+                "operationId": "post-operation",
+                "parameters": [
+                    {
+                        "description": "Operation object",
+                        "name": "operation",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.OperationRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.OperationResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/operations/domains": {
+            "get": {
+                "description": "retrieve the list of operations domains",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OperationsDomains"
+                ],
+                "summary": "Get the operations domains list",
+                "operationId": "get-operations-domains",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/operation.OperationDomain"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create a new operation domain",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OperationsDomains"
+                ],
+                "summary": "Create a new operation domain",
+                "operationId": "post-operation-domain",
+                "parameters": [
+                    {
+                        "description": "Operation Domain",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.SaveOperationDomainRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "update a operation domain",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OperationsDomains"
+                ],
+                "summary": "Update a operation domain",
+                "operationId": "patch-operation-domain",
+                "parameters": [
+                    {
+                        "description": "Operation Domain",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.EditOperationDomainRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/operations/domains/dashboard": {
+            "get": {
+                "description": "retrieve the list of operations domains names",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OperationsDomains"
+                ],
+                "summary": "Get the operations domains names list",
+                "operationId": "get-operations-domains-names",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/operations/domains/{id}": {
+            "get": {
+                "description": "retrieve a operation domain by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OperationsDomains"
+                ],
+                "summary": "Get a operation domain",
+                "operationId": "get-operation-domain-by-id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/operation.OperationDomain"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete a operation domain",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OperationsDomains"
+                ],
+                "summary": "Delete a operation domain",
+                "operationId": "delete-operation-domain",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Operation Domain ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/operations/types": {
+            "get": {
+                "description": "retrieve the list of operations types",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OperationsTypes"
+                ],
+                "summary": "Get the operations types list",
+                "operationId": "get-operations-types",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/operation.OperationType"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create a new operation type",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OperationsTypes"
+                ],
+                "summary": "Create a new operation type",
+                "operationId": "post-operation-type",
+                "parameters": [
+                    {
+                        "description": "Operation Type",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.SaveOperationTypeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "update a operation type",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OperationsTypes"
+                ],
+                "summary": "Update a operation type",
+                "operationId": "patch-operation-type",
+                "parameters": [
+                    {
+                        "description": "Operation Type",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.SaveOperationTypeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/operations/types/dashboard": {
+            "get": {
+                "description": "retrieve the list of operations types names",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OperationsTypes"
+                ],
+                "summary": "Get the operations types names list",
+                "operationId": "get-operations-types-names",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/operations/types/{id}": {
+            "get": {
+                "description": "retrieve a operation type by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OperationsTypes"
+                ],
+                "summary": "Get a operation type",
+                "operationId": "get-operation-type-by-id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/operation.OperationType"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete a operation type",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OperationsTypes"
+                ],
+                "summary": "Delete a operation type",
+                "operationId": "delete-operation-type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Operation Type ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/operations/{id}": {
+            "get": {
+                "description": "retrieve an operation by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operations"
+                ],
+                "summary": "Get an operation",
+                "operationId": "get-operation-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Operation ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/operation.OperationWithLogs"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/tokens": {
+            "get": {
+                "description": "retrieve the list of supported tokens",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tokens"
+                ],
+                "summary": "Get the tokens list",
+                "operationId": "get-tokens",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/tokens.Token"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create a new token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tokens"
+                ],
+                "summary": "Create a new token",
+                "operationId": "post-token",
+                "parameters": [
+                    {
+                        "description": "Token object that needs to be added",
+                        "name": "token",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.SaveTokenRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "update a token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tokens"
+                ],
+                "summary": "Update a token",
+                "operationId": "patch-token",
+                "parameters": [
+                    {
+                        "description": "Token",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.EditTokenRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/tokens/{id}": {
+            "get": {
+                "description": "retrieve a supported token by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tokens"
+                ],
+                "summary": "Get a token",
+                "operationId": "get-token-by-id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/tokens.Token"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete a token",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tokens"
+                ],
+                "summary": "Delete a token",
+                "operationId": "delete-token",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wallets": {
+            "get": {
+                "description": "retrieve the list of wallets",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wallets"
+                ],
+                "summary": "Get the wallets list",
+                "operationId": "get-wallets",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/wallet.Wallet"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create a new wallet",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wallets"
+                ],
+                "summary": "Create a new wallet",
+                "operationId": "post-wallet",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wallet.Wallet"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "update a wallet",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wallets"
+                ],
+                "summary": "Update a wallet",
+                "operationId": "patch-wallet",
+                "parameters": [
+                    {
+                        "description": "Wallet",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.EditWalletRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wallet.Wallet"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wallets/address/{address}/blockchain_id/{blockchain_id}": {
+            "get": {
+                "description": "retrieve a wallet by address and blockchain",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wallets"
+                ],
+                "summary": "Get a wallet",
+                "operationId": "get-wallet-by-address-and-blockchain",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wallet.Wallet"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wallets/balances": {
+            "get": {
+                "description": "retrieve the list of wallets balances",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wallets"
+                ],
+                "summary": "Get the wallets balances list",
+                "operationId": "get-wallets-balances",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wallet.TokenBalance"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wallets/blockchain/{blockchain_id}/domain/{domain}": {
+            "get": {
+                "description": "retrieve the list of wallets by blockchain and domain",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wallets"
+                ],
+                "summary": "Get the wallets list",
+                "operationId": "get-wallets-by-blockchain-and-domain",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/wallet.Wallet"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wallets/blockchain/{blockchain_id}/type/{wallet_type}/domain/{domain}": {
+            "get": {
+                "description": "retrieve a wallet by blockchain, wallet type and domain",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wallets"
+                ],
+                "summary": "Get a wallet",
+                "operationId": "get-wallet-by-blockchain-wallet-type-and-domain",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wallet.Wallet"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wallets/{id}": {
+            "get": {
+                "description": "retrieve a wallet by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wallets"
+                ],
+                "summary": "Get a wallet",
+                "operationId": "get-wallet-by-id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/wallet.Wallet"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete a wallet",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wallets"
+                ],
+                "summary": "Delete a wallet",
+                "operationId": "delete-wallet",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Wallet ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wallet.Wallet"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "blockchains.Blockchain": {
+            "type": "object",
+            "properties": {
+                "abbr": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "main_token": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "fireblocks.Blockchain": {
+            "type": "object",
+            "properties": {
+                "abbr": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "main_token": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "fireblocks.FireblocksAccount": {
+            "type": "object",
+            "properties": {
+                "alias": {
+                    "type": "string"
+                },
+                "asset_id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "public_key": {
+                    "type": "string"
+                },
+                "public_key_fallback": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "vault_id": {
+                    "type": "string"
+                },
+                "wallet": {
+                    "$ref": "#/definitions/fireblocks.Wallet"
+                },
+                "wallet_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "fireblocks.Wallet": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "blockchain": {
+                    "$ref": "#/definitions/fireblocks.Blockchain"
+                },
+                "blockchain_id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "operation.OperationDomain": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "operation.OperationType": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "operation.OperationWithLogs": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "blockchain_status": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "fireblocks_id": {
+                    "type": "string"
+                },
+                "fireblocks_status": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "logs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/repositories.OperationLog"
+                    }
+                },
+                "operator": {
+                    "type": "string"
+                },
+                "transaction_hash": {
+                    "type": "string"
+                },
+                "transaction_link": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "repositories.Operation": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "blockchain_status": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "fireblocks_id": {
+                    "type": "string"
+                },
+                "fireblocks_status": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "operator": {
+                    "type": "string"
+                },
+                "transaction_hash": {
+                    "type": "string"
+                },
+                "transaction_link": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "repositories.OperationLog": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "error": {},
+                "fireblocks_id": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "operation_id": {
+                    "type": "string"
+                },
+                "payload": {},
+                "response": {}
+            }
+        },
+        "repositories.PaginatedOperations": {
+            "type": "object",
+            "properties": {
+                "current_page": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/repositories.Operation"
+                    }
+                },
+                "next_page": {
+                    "type": "integer"
+                },
+                "previous_page": {
+                    "type": "integer"
+                },
+                "total_count": {
+                    "type": "integer"
+                },
+                "total_pages": {
+                    "type": "integer"
+                }
+            }
+        },
+        "tokens.Blockchain": {
+            "type": "object",
+            "properties": {
+                "abbr": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "main_token": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "tokens.Token": {
+            "type": "object",
+            "properties": {
+                "abbr": {
+                    "type": "string"
+                },
+                "blockchain": {
+                    "$ref": "#/definitions/tokens.Blockchain"
+                },
+                "blockchain_id": {
+                    "type": "string"
+                },
+                "contract": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "precision": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.EditBlockchainRequest": {
+            "type": "object",
+            "properties": {
+                "abbr": {
+                    "type": "string",
+                    "minLength": 2,
+                    "example": "BTC"
+                },
+                "is_active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "main_token": {
+                    "type": "string",
+                    "minLength": 2,
+                    "example": "BTC"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "BLOCKHAIN-NAME"
+                }
+            }
+        },
+        "types.EditFireblocksAccountRequest": {
+            "type": "object",
+            "properties": {
+                "acc_flags": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "alias": {
+                    "type": "string",
+                    "example": "Alias"
+                },
+                "asset_id": {
+                    "type": "string",
+                    "example": "1234567890"
+                },
+                "domain": {
+                    "type": "string",
+                    "enum": [
+                        "GET-BRAZA",
+                        "BRAZA-ON",
+                        "BRAZA-DESK"
+                    ],
+                    "example": "Domain"
+                },
+                "is_active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Name"
+                },
+                "public_key": {
+                    "type": "string",
+                    "example": "1234567890"
+                },
+                "vault_id": {
+                    "type": "string",
+                    "example": "1234567890"
+                },
+                "wallet_id": {
+                    "type": "string",
+                    "example": "1234567890"
+                }
+            }
+        },
+        "types.EditOperationDomainRequest": {
+            "type": "object",
+            "properties": {
+                "is_active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "name": {
+                    "type": "string",
+                    "example": "DOMAIN-NAME"
+                }
+            }
+        },
+        "types.EditTokenRequest": {
+            "type": "object",
+            "properties": {
+                "abbr": {
+                    "type": "string",
+                    "minLength": 2,
+                    "example": "BTC"
+                },
+                "blockchain": {
+                    "type": "string",
+                    "example": "66f6fe7eccc6398d39e981f9"
+                },
+                "contract": {
+                    "type": "string",
+                    "example": "0x1234567890"
+                },
+                "is_active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "name": {
+                    "type": "string",
+                    "example": "TOKEN-NAME"
+                },
+                "precision": {
+                    "type": "integer",
+                    "example": 18
+                },
+                "type": {
+                    "type": "string",
+                    "example": "NATIVE"
+                }
+            }
+        },
+        "types.EditWalletRequest": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "example": "rfWmf1YZLfcaHVZioBBSUuRLHgMMSfBkBd"
+                },
+                "blockchain": {
+                    "type": "string",
+                    "example": "66f6fe7eccc6398d39e981f9"
+                },
+                "domain": {
+                    "type": "string",
+                    "example": "DOMAIN-NAME"
+                },
+                "is_active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "name": {
+                    "type": "string",
+                    "example": "WALLET-NAME"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "NATIVE"
+                }
+            }
+        },
+        "types.ErrorMessage": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.OperationRequest": {
+            "type": "object",
+            "required": [
+                "amount",
+                "blockchain_id",
+                "domain",
+                "operator",
+                "token_id",
+                "type"
+            ],
+            "properties": {
+                "amount": {
+                    "type": "string",
+                    "example": "2.75"
+                },
+                "blockchain_id": {
+                    "type": "string",
+                    "example": "66f6fe7eccc6398d39e981f9"
+                },
+                "domain": {
+                    "type": "string",
+                    "enum": [
+                        "GET-BRAZA",
+                        "BRAZA-ON",
+                        "BRAZA-DESK"
+                    ],
+                    "example": "GET-BRAZA"
+                },
+                "operator": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "token_id": {
+                    "type": "string",
+                    "example": "66f74acbba6b56108cb3e80a"
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "MINT",
+                        "BURN"
+                    ],
+                    "example": "MINT,BURN"
+                }
+            }
+        },
+        "types.OperationResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "operation was accepted to be processed on blockchain"
+                },
+                "success": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "types.Result": {
+            "type": "object",
+            "properties": {
+                "result": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.SaveBlockchainRequest": {
+            "type": "object",
+            "required": [
+                "abbr",
+                "main_token",
+                "name"
+            ],
+            "properties": {
+                "abbr": {
+                    "type": "string",
+                    "minLength": 2,
+                    "example": "BTC"
+                },
+                "is_active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "main_token": {
+                    "type": "string",
+                    "minLength": 2,
+                    "example": "BTC"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "BLOCKHAIN-NAME"
+                }
+            }
+        },
+        "types.SaveFireblocksAccountRequest": {
+            "type": "object",
+            "required": [
+                "acc_flags",
+                "alias",
+                "asset_id",
+                "domain",
+                "name",
+                "public_key",
+                "vault_id",
+                "wallet_id"
+            ],
+            "properties": {
+                "acc_flags": {
+                    "type": "integer",
+                    "example": 134567
+                },
+                "alias": {
+                    "type": "string",
+                    "example": "Alias"
+                },
+                "asset_id": {
+                    "type": "string",
+                    "example": "XRP"
+                },
+                "domain": {
+                    "type": "string",
+                    "enum": [
+                        "GET-BRAZA",
+                        "BRAZA-ON",
+                        "BRAZA-DESK"
+                    ],
+                    "example": "Domain"
+                },
+                "is_active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Name"
+                },
+                "public_key": {
+                    "type": "string",
+                    "example": "032eb952987ef159445955c87461b9cdd498d0396f8ec5dc52af328babc2ed518f"
+                },
+                "vault_id": {
+                    "type": "string",
+                    "example": "12"
+                },
+                "wallet_id": {
+                    "type": "string",
+                    "example": "66fc49c62dd62529e6e879bb"
+                }
+            }
+        },
+        "types.SaveOperationDomainRequest": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "is_active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "name": {
+                    "type": "string",
+                    "example": "DOMAIN-NAME"
+                }
+            }
+        },
+        "types.SaveOperationTypeRequest": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "TYPE-NAME"
+                }
+            }
+        },
+        "types.SaveTokenRequest": {
+            "type": "object",
+            "required": [
+                "abbr",
+                "blockchain",
+                "contract",
+                "precision",
+                "type"
+            ],
+            "properties": {
+                "abbr": {
+                    "type": "string",
+                    "minLength": 2,
+                    "example": "BTC"
+                },
+                "blockchain": {
+                    "type": "string",
+                    "example": "66f6fe7eccc6398d39e981f9"
+                },
+                "contract": {
+                    "type": "string",
+                    "example": "0x1234567890"
+                },
+                "is_active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "name": {
+                    "type": "string",
+                    "example": "TOKEN-NAME"
+                },
+                "precision": {
+                    "type": "integer",
+                    "example": 18
+                },
+                "type": {
+                    "type": "string",
+                    "example": "NATIVE"
+                }
+            }
+        },
+        "wallet.Blockchain": {
+            "type": "object",
+            "properties": {
+                "abbr": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "main_token": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "wallet.TokenBalance": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "string"
+                },
+                "contract": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "wallet.Wallet": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "blockchain": {
+                    "$ref": "#/definitions/wallet.Blockchain"
+                },
+                "blockchain_id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

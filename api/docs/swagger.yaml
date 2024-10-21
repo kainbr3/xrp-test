@@ -1,0 +1,1681 @@
+definitions:
+  blockchains.Blockchain:
+    properties:
+      abbr:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      main_token:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  fireblocks.Blockchain:
+    properties:
+      abbr:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      main_token:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  fireblocks.FireblocksAccount:
+    properties:
+      alias:
+        type: string
+      asset_id:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      public_key:
+        type: string
+      public_key_fallback:
+        type: string
+      updated_at:
+        type: string
+      vault_id:
+        type: string
+      wallet:
+        $ref: '#/definitions/fireblocks.Wallet'
+      wallet_id:
+        type: string
+    type: object
+  fireblocks.Wallet:
+    properties:
+      address:
+        type: string
+      blockchain:
+        $ref: '#/definitions/fireblocks.Blockchain'
+      blockchain_id:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  operation.OperationDomain:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  operation.OperationType:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  operation.OperationWithLogs:
+    properties:
+      amount:
+        type: string
+      blockchain_status:
+        type: string
+      created_at:
+        type: string
+      domain:
+        type: string
+      fireblocks_id:
+        type: string
+      fireblocks_status:
+        type: string
+      id:
+        type: string
+      logs:
+        items:
+          $ref: '#/definitions/repositories.OperationLog'
+        type: array
+      operator:
+        type: string
+      transaction_hash:
+        type: string
+      transaction_link:
+        type: string
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  repositories.Operation:
+    properties:
+      amount:
+        type: string
+      blockchain_status:
+        type: string
+      created_at:
+        type: string
+      domain:
+        type: string
+      fireblocks_id:
+        type: string
+      fireblocks_status:
+        type: string
+      id:
+        type: string
+      operator:
+        type: string
+      transaction_hash:
+        type: string
+      transaction_link:
+        type: string
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  repositories.OperationLog:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      error: {}
+      fireblocks_id:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      operation_id:
+        type: string
+      payload: {}
+      response: {}
+    type: object
+  repositories.PaginatedOperations:
+    properties:
+      current_page:
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/repositories.Operation'
+        type: array
+      next_page:
+        type: integer
+      previous_page:
+        type: integer
+      total_count:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+  tokens.Blockchain:
+    properties:
+      abbr:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      main_token:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  tokens.Token:
+    properties:
+      abbr:
+        type: string
+      blockchain:
+        $ref: '#/definitions/tokens.Blockchain'
+      blockchain_id:
+        type: string
+      contract:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      precision:
+        type: integer
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  types.EditBlockchainRequest:
+    properties:
+      abbr:
+        example: BTC
+        minLength: 2
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      main_token:
+        example: BTC
+        minLength: 2
+        type: string
+      name:
+        example: BLOCKHAIN-NAME
+        type: string
+    type: object
+  types.EditFireblocksAccountRequest:
+    properties:
+      acc_flags:
+        example: 1
+        type: integer
+      alias:
+        example: Alias
+        type: string
+      asset_id:
+        example: "1234567890"
+        type: string
+      domain:
+        enum:
+        - GET-BRAZA
+        - BRAZA-ON
+        - BRAZA-DESK
+        example: Domain
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      name:
+        example: Name
+        type: string
+      public_key:
+        example: "1234567890"
+        type: string
+      vault_id:
+        example: "1234567890"
+        type: string
+      wallet_id:
+        example: "1234567890"
+        type: string
+    type: object
+  types.EditOperationDomainRequest:
+    properties:
+      is_active:
+        example: true
+        type: boolean
+      name:
+        example: DOMAIN-NAME
+        type: string
+    type: object
+  types.EditTokenRequest:
+    properties:
+      abbr:
+        example: BTC
+        minLength: 2
+        type: string
+      blockchain:
+        example: 66f6fe7eccc6398d39e981f9
+        type: string
+      contract:
+        example: "0x1234567890"
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      name:
+        example: TOKEN-NAME
+        type: string
+      precision:
+        example: 18
+        type: integer
+      type:
+        example: NATIVE
+        type: string
+    type: object
+  types.EditWalletRequest:
+    properties:
+      address:
+        example: rfWmf1YZLfcaHVZioBBSUuRLHgMMSfBkBd
+        type: string
+      blockchain:
+        example: 66f6fe7eccc6398d39e981f9
+        type: string
+      domain:
+        example: DOMAIN-NAME
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      name:
+        example: WALLET-NAME
+        type: string
+      type:
+        example: NATIVE
+        type: string
+    type: object
+  types.ErrorMessage:
+    properties:
+      message:
+        type: string
+    type: object
+  types.OperationRequest:
+    properties:
+      amount:
+        example: "2.75"
+        type: string
+      blockchain_id:
+        example: 66f6fe7eccc6398d39e981f9
+        type: string
+      domain:
+        enum:
+        - GET-BRAZA
+        - BRAZA-ON
+        - BRAZA-DESK
+        example: GET-BRAZA
+        type: string
+      operator:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      token_id:
+        example: 66f74acbba6b56108cb3e80a
+        type: string
+      type:
+        enum:
+        - MINT
+        - BURN
+        example: MINT,BURN
+        type: string
+    required:
+    - amount
+    - blockchain_id
+    - domain
+    - operator
+    - token_id
+    - type
+    type: object
+  types.OperationResponse:
+    properties:
+      message:
+        example: operation was accepted to be processed on blockchain
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  types.Result:
+    properties:
+      result:
+        type: string
+    type: object
+  types.SaveBlockchainRequest:
+    properties:
+      abbr:
+        example: BTC
+        minLength: 2
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      main_token:
+        example: BTC
+        minLength: 2
+        type: string
+      name:
+        example: BLOCKHAIN-NAME
+        type: string
+    required:
+    - abbr
+    - main_token
+    - name
+    type: object
+  types.SaveFireblocksAccountRequest:
+    properties:
+      acc_flags:
+        example: 134567
+        type: integer
+      alias:
+        example: Alias
+        type: string
+      asset_id:
+        example: XRP
+        type: string
+      domain:
+        enum:
+        - GET-BRAZA
+        - BRAZA-ON
+        - BRAZA-DESK
+        example: Domain
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      name:
+        example: Name
+        type: string
+      public_key:
+        example: 032eb952987ef159445955c87461b9cdd498d0396f8ec5dc52af328babc2ed518f
+        type: string
+      vault_id:
+        example: "12"
+        type: string
+      wallet_id:
+        example: 66fc49c62dd62529e6e879bb
+        type: string
+    required:
+    - acc_flags
+    - alias
+    - asset_id
+    - domain
+    - name
+    - public_key
+    - vault_id
+    - wallet_id
+    type: object
+  types.SaveOperationDomainRequest:
+    properties:
+      is_active:
+        example: true
+        type: boolean
+      name:
+        example: DOMAIN-NAME
+        type: string
+    required:
+    - name
+    type: object
+  types.SaveOperationTypeRequest:
+    properties:
+      name:
+        example: TYPE-NAME
+        type: string
+    required:
+    - name
+    type: object
+  types.SaveTokenRequest:
+    properties:
+      abbr:
+        example: BTC
+        minLength: 2
+        type: string
+      blockchain:
+        example: 66f6fe7eccc6398d39e981f9
+        type: string
+      contract:
+        example: "0x1234567890"
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      name:
+        example: TOKEN-NAME
+        type: string
+      precision:
+        example: 18
+        type: integer
+      type:
+        example: NATIVE
+        type: string
+    required:
+    - abbr
+    - blockchain
+    - contract
+    - precision
+    - type
+    type: object
+  wallet.Blockchain:
+    properties:
+      abbr:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      main_token:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  wallet.TokenBalance:
+    properties:
+      address:
+        type: string
+      amount:
+        type: string
+      contract:
+        type: string
+      name:
+        type: string
+    type: object
+  wallet.Wallet:
+    properties:
+      address:
+        type: string
+      blockchain:
+        $ref: '#/definitions/wallet.Blockchain'
+      blockchain_id:
+        type: string
+      created_at:
+        type: string
+      domain:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/blockchains:
+    get:
+      description: retrieve the list of supported blockchains
+      operationId: get-blockchains
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/blockchains.Blockchain'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the blockchains list
+      tags:
+      - Blockchains
+    patch:
+      consumes:
+      - application/json
+      description: update a blockchain
+      operationId: patch-blockchains
+      parameters:
+      - description: Blockchain data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.EditBlockchainRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Update a blockchain
+      tags:
+      - Blockchains
+    post:
+      consumes:
+      - application/json
+      description: create a new blockchain
+      operationId: post-blockchains
+      parameters:
+      - description: Blockchain data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.SaveBlockchainRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Create a new blockchain
+      tags:
+      - Blockchains
+  /api/v1/blockchains/{id}:
+    delete:
+      description: delete a blockchain
+      operationId: delete-blockchains
+      parameters:
+      - description: Blockchain ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Delete a blockchain
+      tags:
+      - Blockchains
+    get:
+      description: retrieve a supported blockchain by id
+      operationId: get-blockchain-by-id
+      parameters:
+      - description: Blockchain ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/blockchains.Blockchain'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get a blockchain
+      tags:
+      - Blockchains
+  /api/v1/blockchains/{id}/tokens:
+    get:
+      description: retrieve the list of tokens for a blockchain
+      operationId: get-blockchains-tokens
+      parameters:
+      - description: Blockchain ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/tokens.Token'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the blockchain tokens list
+      tags:
+      - Blockchains
+  /api/v1/fireblocks-accounts:
+    get:
+      description: retrieve the list of fireblocks accounts
+      operationId: get-fireblocks-accounts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/fireblocks.FireblocksAccount'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the fireblocks accounts list
+      tags:
+      - FireblocksAccounts
+    post:
+      consumes:
+      - application/json
+      description: create a new fireblocks account
+      operationId: post-fireblocks-accounts
+      parameters:
+      - description: Fireblocks Account
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.SaveFireblocksAccountRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Create a new fireblocks account
+      tags:
+      - FireblocksAccounts
+  /api/v1/fireblocks-accounts/{id}:
+    delete:
+      description: delete a fireblocks account
+      operationId: delete-fireblocks-accounts
+      parameters:
+      - description: Fireblocks Account ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Delete a fireblocks account
+      tags:
+      - FireblocksAccounts
+    get:
+      description: retrieve a fireblocks account by id
+      operationId: get-fireblocks-accounts-by-id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/fireblocks.FireblocksAccount'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get a fireblocks account
+      tags:
+      - FireblocksAccounts
+  /api/v1/fireblocks-accounts/vault/{vault_id}:
+    get:
+      description: retrieve a fireblocks account by vault id
+      operationId: get-fireblocks-accounts-by-vault-id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/fireblocks.FireblocksAccount'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get a fireblocks account
+      tags:
+      - FireblocksAccounts
+  /api/v1/operations:
+    get:
+      description: retrieve the list of operations
+      operationId: get-operations
+      parameters:
+      - description: Filter parameter
+        in: query
+        name: filter_param
+        type: string
+      - description: Filter value
+        in: query
+        name: filter_value
+        type: string
+      - description: Sort field
+        in: query
+        name: sort_field
+        type: string
+      - description: Sort order
+        in: query
+        name: sort_order
+        type: string
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/repositories.PaginatedOperations'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the operations list
+      tags:
+      - Operations
+    post:
+      consumes:
+      - application/json
+      description: create a new operation
+      operationId: post-operation
+      parameters:
+      - description: Operation object
+        in: body
+        name: operation
+        required: true
+        schema:
+          $ref: '#/definitions/types.OperationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.OperationResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Create a new operation
+      tags:
+      - Operations
+  /api/v1/operations/{id}:
+    get:
+      description: retrieve an operation by id
+      operationId: get-operation-by-id
+      parameters:
+      - description: Operation ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/operation.OperationWithLogs'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get an operation
+      tags:
+      - Operations
+  /api/v1/operations/domains:
+    get:
+      description: retrieve the list of operations domains
+      operationId: get-operations-domains
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/operation.OperationDomain'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the operations domains list
+      tags:
+      - OperationsDomains
+    patch:
+      consumes:
+      - application/json
+      description: update a operation domain
+      operationId: patch-operation-domain
+      parameters:
+      - description: Operation Domain
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.EditOperationDomainRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Update a operation domain
+      tags:
+      - OperationsDomains
+    post:
+      consumes:
+      - application/json
+      description: create a new operation domain
+      operationId: post-operation-domain
+      parameters:
+      - description: Operation Domain
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/types.SaveOperationDomainRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Create a new operation domain
+      tags:
+      - OperationsDomains
+  /api/v1/operations/domains/{id}:
+    delete:
+      description: delete a operation domain
+      operationId: delete-operation-domain
+      parameters:
+      - description: Operation Domain ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Delete a operation domain
+      tags:
+      - OperationsDomains
+    get:
+      description: retrieve a operation domain by id
+      operationId: get-operation-domain-by-id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/operation.OperationDomain'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get a operation domain
+      tags:
+      - OperationsDomains
+  /api/v1/operations/domains/dashboard:
+    get:
+      description: retrieve the list of operations domains names
+      operationId: get-operations-domains-names
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the operations domains names list
+      tags:
+      - OperationsDomains
+  /api/v1/operations/types:
+    get:
+      description: retrieve the list of operations types
+      operationId: get-operations-types
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/operation.OperationType'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the operations types list
+      tags:
+      - OperationsTypes
+    patch:
+      consumes:
+      - application/json
+      description: update a operation type
+      operationId: patch-operation-type
+      parameters:
+      - description: Operation Type
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.SaveOperationTypeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Update a operation type
+      tags:
+      - OperationsTypes
+    post:
+      consumes:
+      - application/json
+      description: create a new operation type
+      operationId: post-operation-type
+      parameters:
+      - description: Operation Type
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/types.SaveOperationTypeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Create a new operation type
+      tags:
+      - OperationsTypes
+  /api/v1/operations/types/{id}:
+    delete:
+      description: delete a operation type
+      operationId: delete-operation-type
+      parameters:
+      - description: Operation Type ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Delete a operation type
+      tags:
+      - OperationsTypes
+    get:
+      description: retrieve a operation type by id
+      operationId: get-operation-type-by-id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/operation.OperationType'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get a operation type
+      tags:
+      - OperationsTypes
+  /api/v1/operations/types/dashboard:
+    get:
+      description: retrieve the list of operations types names
+      operationId: get-operations-types-names
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the operations types names list
+      tags:
+      - OperationsTypes
+  /api/v1/tokens:
+    get:
+      description: retrieve the list of supported tokens
+      operationId: get-tokens
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/tokens.Token'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the tokens list
+      tags:
+      - Tokens
+    patch:
+      consumes:
+      - application/json
+      description: update a token
+      operationId: patch-token
+      parameters:
+      - description: Token
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.EditTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Update a token
+      tags:
+      - Tokens
+    post:
+      consumes:
+      - application/json
+      description: create a new token
+      operationId: post-token
+      parameters:
+      - description: Token object that needs to be added
+        in: body
+        name: token
+        required: true
+        schema:
+          $ref: '#/definitions/types.SaveTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Create a new token
+      tags:
+      - Tokens
+  /api/v1/tokens/{id}:
+    delete:
+      description: delete a token
+      operationId: delete-token
+      parameters:
+      - description: Token ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Delete a token
+      tags:
+      - Tokens
+    get:
+      description: retrieve a supported token by id
+      operationId: get-token-by-id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tokens.Token'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get a token
+      tags:
+      - Tokens
+  /api/v1/wallets:
+    get:
+      description: retrieve the list of wallets
+      operationId: get-wallets
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/wallet.Wallet'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the wallets list
+      tags:
+      - Wallets
+    patch:
+      consumes:
+      - application/json
+      description: update a wallet
+      operationId: patch-wallet
+      parameters:
+      - description: Wallet
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.EditWalletRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet.Wallet'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Update a wallet
+      tags:
+      - Wallets
+    post:
+      description: create a new wallet
+      operationId: post-wallet
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet.Wallet'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Create a new wallet
+      tags:
+      - Wallets
+  /api/v1/wallets/{id}:
+    delete:
+      description: delete a wallet
+      operationId: delete-wallet
+      parameters:
+      - description: Wallet ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet.Wallet'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Delete a wallet
+      tags:
+      - Wallets
+    get:
+      description: retrieve a wallet by id
+      operationId: get-wallet-by-id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/wallet.Wallet'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get a wallet
+      tags:
+      - Wallets
+  /api/v1/wallets/address/{address}/blockchain_id/{blockchain_id}:
+    get:
+      description: retrieve a wallet by address and blockchain
+      operationId: get-wallet-by-address-and-blockchain
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet.Wallet'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get a wallet
+      tags:
+      - Wallets
+  /api/v1/wallets/balances:
+    get:
+      description: retrieve the list of wallets balances
+      operationId: get-wallets-balances
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet.TokenBalance'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the wallets balances list
+      tags:
+      - Wallets
+  /api/v1/wallets/blockchain/{blockchain_id}/domain/{domain}:
+    get:
+      description: retrieve the list of wallets by blockchain and domain
+      operationId: get-wallets-by-blockchain-and-domain
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/wallet.Wallet'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the wallets list
+      tags:
+      - Wallets
+  /api/v1/wallets/blockchain/{blockchain_id}/type/{wallet_type}/domain/{domain}:
+    get:
+      description: retrieve a wallet by blockchain, wallet type and domain
+      operationId: get-wallet-by-blockchain-wallet-type-and-domain
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet.Wallet'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get a wallet
+      tags:
+      - Wallets
+swagger: "2.0"
