@@ -67,7 +67,7 @@ func (t TransactionsTypesHandler) GetTransactionsTypes(ctx *fiber.Ctx) error {
 // @Tags TransactionsTypes
 // @ID get-transaction-type-by-id
 // @Produce json
-// @Success 200 {object} transaction.transactionType
+// @Success 200 {object} transaction.TransactionType
 // @Failure 400 {object} types.ErrorMessage
 // @Failure 404 {object} types.ErrorMessage
 // @Failure 500 {object} types.ErrorMessage
