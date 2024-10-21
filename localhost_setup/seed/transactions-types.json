@@ -1,0 +1,3 @@
+{"_id":{"$oid":"671495890404579f10316ab1"},"name":"ON-RAMP","is_active":true,"created_at":{"$date":"2024-10-20T05:30:49.713Z"},"updated_at":{"$date":"2024-10-20T05:30:49.713Z"}}
+{"_id":{"$oid":"671495c70404579f10316ab3"},"name":"OFF-RAMP","is_active":true,"created_at":{"$date":"2024-10-20T05:31:51.177Z"},"updated_at":{"$date":"2024-10-20T05:31:51.177Z"}}
+{"_id":{"$oid":"671495d40404579f10316ab5"},"name":"PAYMENT","is_active":true,"created_at":{"$date":"2024-10-20T05:32:04.004Z"},"updated_at":{"$date":"2024-10-20T05:32:04.004Z"}}

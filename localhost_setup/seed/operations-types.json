@@ -1,0 +1,2 @@
+{"_id":{"$oid":"66ff725697875b4fe72e174d"},"name":"MINT","is_active":true,"created_at":{"$date":"2024-10-04T04:43:02.183Z"},"updated_at":{"$date":"2024-10-04T04:43:02.183Z"}}
+{"_id":{"$oid":"66ff725f97875b4fe72e174e"},"name":"BURN","is_active":true,"created_at":{"$date":"2024-10-04T04:43:11.955Z"},"updated_at":{"$date":"2024-10-04T04:43:11.955Z"}}
