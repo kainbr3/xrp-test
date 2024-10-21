@@ -44,18 +44,19 @@ type Wallet struct {
 }
 
 type FireblocksAccount struct {
-	ID        primitive.ObjectID `bson:"_id" json:"id"`
-	WalletID  string             `bson:"wallet_id" json:"wallet_id"`
-	VaultID   string             `bson:"vault_id" json:"vault_id"`
-	AssetID   string             `bson:"asset_id" json:"asset_id"`
-	Name      string             `bson:"name" json:"name"`
-	Alias     string             `bson:"alias" json:"alias"`
-	Domain    string             `bson:"domain" json:"domain"`
-	Flags     int                `bson:"acc_flags" json:"acc_flags"`
-	PublicKey string             `bson:"public_key" json:"public_key"`
-	IsActive  bool               `bson:"is_active" json:"is_active"`
-	CreatedAt time.Time          `bson:"created_at" json:"created_at"`
-	UpdatedAt time.Time          `bson:"updated_at" json:"updated_at"`
+	ID         primitive.ObjectID `bson:"_id" json:"id"`
+	WalletID   string             `bson:"wallet_id" json:"wallet_id"`
+	VaultID    string             `bson:"vault_id" json:"vault_id"`
+	AssetID    string             `bson:"asset_id" json:"asset_id"`
+	Name       string             `bson:"name" json:"name"`
+	Alias      string             `bson:"alias" json:"alias"`
+	Domain     string             `bson:"domain" json:"domain"`
+	Blockchain string             `bson:"blockchain" json:"blockchain"`
+	Flags      int                `bson:"acc_flags" json:"acc_flags"`
+	PublicKey  string             `bson:"public_key" json:"public_key"`
+	IsActive   bool               `bson:"is_active" json:"is_active"`
+	CreatedAt  time.Time          `bson:"created_at" json:"created_at"`
+	UpdatedAt  time.Time          `bson:"updated_at" json:"updated_at"`
 }
 
 type Operation struct {

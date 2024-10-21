@@ -16,7 +16,7 @@ import (
 // @contact.email  getbraza@braza.com.br
 // @contact.url    https://www.brazaon.com.br
 
-// @host      localhost:8080
+// @host      localhost:6000
 // @BasePath  /
 
 // @externalDocs.description  OpenAPI

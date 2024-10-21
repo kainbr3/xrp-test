@@ -115,7 +115,7 @@ func v1Endpoints(api fiber.Router, resources *cfg.Resources) {
 	v1.Get("/transactions-types", h.TransactionsTypesHandler{Resources: resources}.GetTransactionsTypes)
 	v1.Get("/transactions-types/:id", h.TransactionsTypesHandler{Resources: resources}.GetTransactionTypeById)
 	v1.Post("/transactions-types", h.TransactionsTypesHandler{Resources: resources}.PostTransactionType)
-	v1.Patch("/transactions-types", h.TransactionsTypesHandler{Resources: resources}.PatchTransactionType)
+	v1.Patch("/transactions-types/:id", h.TransactionsTypesHandler{Resources: resources}.PatchTransactionType)
 	v1.Delete("/transactions-types/:id", h.TransactionsTypesHandler{Resources: resources}.DeleteTransactionType)
 }
 

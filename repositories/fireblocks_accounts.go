@@ -70,6 +70,26 @@ func (r *Repository) FindFireblocksAccountByVaultId(ctx context.Context, vaultId
 	return result, nil
 }
 
+func (r *Repository) FindFireblocksAccountByDomain(ctx context.Context, domain string) ([]*FireblocksAccount, error) {
+	filter := bson.M{"domain": domain}
+	findOptions := options.Find().SetSort(bson.M{"name": 1})
+
+	cursor, err := r.fireblocksAccountsCollection.Find(ctx, filter, findOptions)
+	if err != nil {
+		l.Logger.Error("repository: error finding fireblocks accounts", zap.Error(err))
+		return nil, err
+	}
+	defer cursor.Close(ctx)
+
+	var result []*FireblocksAccount
+	if err = cursor.All(ctx, &result); err != nil {
+		l.Logger.Error("repository: error parsing fireblocks accounts result", zap.Error(err))
+		return nil, err
+	}
+
+	return result, nil
+}
+
 func (r *Repository) SaveFireblocksAccount(ctx context.Context, fireblocksAccount *FireblocksAccount) (primitive.ObjectID, error) {
 	// Ensure the operation has a valid ObjectID
 	if fireblocksAccount.ID.IsZero() {

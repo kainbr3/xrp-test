@@ -74,8 +74,13 @@ func DefaultPath(ctx *fiber.Ctx) error {
 
 // AuthorizerHandler - middleware to validate the Authorization header
 func AuthorizerHandler(ctx *fiber.Ctx) error {
-	l.Logger.Info("auth: webhook", zap.String("path", ctx.Get("x-webhook-secret")))
-	l.Logger.Info("auth: authorizer", zap.String("Authorization", ctx.Get("Authorization")))
+	if ctx.Get("x-webhook-secret") != "" {
+		l.Logger.Info("auth: webhook", zap.String("path", ctx.Get("x-webhook-secret")))
+	}
+
+	if ctx.Get("Authorization") != "" {
+		l.Logger.Info("auth: authorizer", zap.String("Authorization", ctx.Get("Authorization")))
+	}
 
 	// authHeader := ctx.Get("Authorization")
 	// if authHeader == "" {

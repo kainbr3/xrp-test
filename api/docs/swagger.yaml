@@ -16,6 +16,9 @@ definitions:
       updated_at:
         type: string
     type: object
+  fiber.Map:
+    additionalProperties: true
+    type: object
   fireblocks.Blockchain:
     properties:
       abbr:
@@ -242,6 +245,19 @@ definitions:
       updated_at:
         type: string
     type: object
+  transaction.TransactionType:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
   types.EditBlockchainRequest:
     properties:
       abbr:
@@ -268,7 +284,7 @@ definitions:
         example: Alias
         type: string
       asset_id:
-        example: "1234567890"
+        example: XRP_TEST
         type: string
       domain:
         enum:
@@ -284,13 +300,13 @@ definitions:
         example: Name
         type: string
       public_key:
-        example: "1234567890"
+        example: 123abc
         type: string
       vault_id:
-        example: "1234567890"
+        example: "17"
         type: string
       wallet_id:
-        example: "1234567890"
+        example: "18"
         type: string
     type: object
   types.EditOperationDomainRequest:
@@ -426,7 +442,7 @@ definitions:
   types.SaveFireblocksAccountRequest:
     properties:
       acc_flags:
-        example: 134567
+        example: 2
         type: integer
       alias:
         example: Alias
@@ -515,6 +531,14 @@ definitions:
     - contract
     - precision
     - type
+    type: object
+  types.SaveTransactionTypeRequest:
+    properties:
+      name:
+        example: TYPE-NAME
+        type: string
+    required:
+    - name
     type: object
   wallet.Blockchain:
     properties:
@@ -963,39 +987,7 @@ paths:
       summary: Create a new operation
       tags:
       - Operations
-  /api/v1/operations/{id}:
-    get:
-      description: retrieve an operation by id
-      operationId: get-operation-by-id
-      parameters:
-      - description: Operation ID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/operation.OperationWithLogs'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/types.ErrorMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/types.ErrorMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/types.ErrorMessage'
-      summary: Get an operation
-      tags:
-      - Operations
-  /api/v1/operations/domains:
+  /api/v1/operations-domains:
     get:
       description: retrieve the list of operations domains
       operationId: get-operations-domains
@@ -1079,7 +1071,7 @@ paths:
       summary: Create a new operation domain
       tags:
       - OperationsDomains
-  /api/v1/operations/domains/{id}:
+  /api/v1/operations-domains/{id}:
     delete:
       description: delete a operation domain
       operationId: delete-operation-domain
@@ -1096,6 +1088,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
         "404":
           description: Not Found
           schema:
@@ -1132,7 +1128,7 @@ paths:
       summary: Get a operation domain
       tags:
       - OperationsDomains
-  /api/v1/operations/domains/dashboard:
+  /api/v1/operations-domains/list:
     get:
       description: retrieve the list of operations domains names
       operationId: get-operations-domains-names
@@ -1142,9 +1138,7 @@ paths:
         "200":
           description: OK
           schema:
-            items:
-              type: string
-            type: array
+            $ref: '#/definitions/fiber.Map'
         "500":
           description: Internal Server Error
           schema:
@@ -1152,7 +1146,7 @@ paths:
       summary: Get the operations domains names list
       tags:
       - OperationsDomains
-  /api/v1/operations/types:
+  /api/v1/operations-types:
     get:
       description: retrieve the list of operations types
       operationId: get-operations-types
@@ -1236,7 +1230,7 @@ paths:
       summary: Create a new operation type
       tags:
       - OperationsTypes
-  /api/v1/operations/types/{id}:
+  /api/v1/operations-types/{id}:
     delete:
       description: delete a operation type
       operationId: delete-operation-type
@@ -1253,6 +1247,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
         "404":
           description: Not Found
           schema:
@@ -1274,6 +1272,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/operation.OperationType'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
         "404":
           description: Not Found
           schema:
@@ -1285,7 +1287,7 @@ paths:
       summary: Get a operation type
       tags:
       - OperationsTypes
-  /api/v1/operations/types/dashboard:
+  /api/v1/operations-types/list:
     get:
       description: retrieve the list of operations types names
       operationId: get-operations-types-names
@@ -1295,9 +1297,7 @@ paths:
         "200":
           description: OK
           schema:
-            items:
-              type: string
-            type: array
+            $ref: '#/definitions/fiber.Map'
         "500":
           description: Internal Server Error
           schema:
@@ -1305,6 +1305,38 @@ paths:
       summary: Get the operations types names list
       tags:
       - OperationsTypes
+  /api/v1/operations/{id}:
+    get:
+      description: retrieve an operation by id
+      operationId: get-operation-by-id
+      parameters:
+      - description: Operation ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/operation.OperationWithLogs'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get an operation
+      tags:
+      - Operations
   /api/v1/tokens:
     get:
       description: retrieve the list of supported tokens
@@ -1438,6 +1470,176 @@ paths:
       summary: Get a token
       tags:
       - Tokens
+  /api/v1/transactions-types:
+    get:
+      description: retrieve the list of transactions types
+      operationId: get-transactions-types
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/transaction.TransactionType'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the transactions types list
+      tags:
+      - TransactionsTypes
+    post:
+      consumes:
+      - application/json
+      description: create a new transaction type
+      operationId: post-transaction-type
+      parameters:
+      - description: transaction Type
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/types.SaveTransactionTypeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Create a new transaction type
+      tags:
+      - TransactionsTypes
+  /api/v1/transactions-types/{id}:
+    delete:
+      description: delete a transaction type
+      operationId: delete-transaction-type
+      parameters:
+      - description: transaction Type ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Delete a transaction type
+      tags:
+      - TransactionsTypes
+    get:
+      description: retrieve a transaction type by id
+      operationId: get-transaction-type-by-id
+      parameters:
+      - description: Transaction Type ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/transaction.TransactionType'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get a transaction type
+      tags:
+      - TransactionsTypes
+    patch:
+      consumes:
+      - application/json
+      description: update a transaction type
+      operationId: patch-transaction-type
+      parameters:
+      - description: Transaction Type ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: transaction Type
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.SaveTransactionTypeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Update a transaction type
+      tags:
+      - TransactionsTypes
+  /api/v1/transactions-types/list:
+    get:
+      description: retrieve the list of transactions types names
+      operationId: get-transactions-types-names
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/fiber.Map'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/types.ErrorMessage'
+      summary: Get the transactions types names list
+      tags:
+      - TransactionsTypes
   /api/v1/wallets:
     get:
       description: retrieve the list of wallets

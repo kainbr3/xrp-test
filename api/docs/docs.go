@@ -604,7 +604,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/operations/domains": {
+        "/api/v1/operations-domains": {
             "get": {
                 "description": "retrieve the list of operations domains",
                 "produces": [
@@ -730,7 +730,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/operations/domains/dashboard": {
+        "/api/v1/operations-domains/list": {
             "get": {
                 "description": "retrieve the list of operations domains names",
                 "produces": [
@@ -745,10 +745,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/fiber.Map"
                         }
                     },
                     "500": {
@@ -760,7 +757,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/operations/domains/{id}": {
+        "/api/v1/operations-domains/{id}": {
             "get": {
                 "description": "retrieve a operation domain by id",
                 "produces": [
@@ -824,6 +821,12 @@ const docTemplate = `{
                             "$ref": "#/definitions/types.Result"
                         }
                     },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
                     "404": {
                         "description": "Not Found",
                         "schema": {
@@ -839,7 +842,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/operations/types": {
+        "/api/v1/operations-types": {
             "get": {
                 "description": "retrieve the list of operations types",
                 "produces": [
@@ -965,7 +968,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/operations/types/dashboard": {
+        "/api/v1/operations-types/list": {
             "get": {
                 "description": "retrieve the list of operations types names",
                 "produces": [
@@ -980,10 +983,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/fiber.Map"
                         }
                     },
                     "500": {
@@ -995,7 +995,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/operations/types/{id}": {
+        "/api/v1/operations-types/{id}": {
             "get": {
                 "description": "retrieve a operation type by id",
                 "produces": [
@@ -1011,6 +1011,12 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/operation.OperationType"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
                         }
                     },
                     "404": {
@@ -1051,6 +1057,12 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
                         }
                     },
                     "404": {
@@ -1298,6 +1310,260 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/transactions-types": {
+            "get": {
+                "description": "retrieve the list of transactions types",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TransactionsTypes"
+                ],
+                "summary": "Get the transactions types list",
+                "operationId": "get-transactions-types",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/transaction.TransactionType"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create a new transaction type",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TransactionsTypes"
+                ],
+                "summary": "Create a new transaction type",
+                "operationId": "post-transaction-type",
+                "parameters": [
+                    {
+                        "description": "transaction Type",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.SaveTransactionTypeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/transactions-types/list": {
+            "get": {
+                "description": "retrieve the list of transactions types names",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TransactionsTypes"
+                ],
+                "summary": "Get the transactions types names list",
+                "operationId": "get-transactions-types-names",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/fiber.Map"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/transactions-types/{id}": {
+            "get": {
+                "description": "retrieve a transaction type by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TransactionsTypes"
+                ],
+                "summary": "Get a transaction type",
+                "operationId": "get-transaction-type-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Transaction Type ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/transaction.TransactionType"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete a transaction type",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TransactionsTypes"
+                ],
+                "summary": "Delete a transaction type",
+                "operationId": "delete-transaction-type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "transaction Type ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "update a transaction type",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TransactionsTypes"
+                ],
+                "summary": "Update a transaction type",
+                "operationId": "patch-transaction-type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Transaction Type ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "transaction Type",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.SaveTransactionTypeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorMessage"
                         }
                     },
                     "404": {
@@ -1702,6 +1968,10 @@ const docTemplate = `{
                 }
             }
         },
+        "fiber.Map": {
+            "type": "object",
+            "additionalProperties": true
+        },
         "fireblocks.Blockchain": {
             "type": "object",
             "properties": {
@@ -2045,6 +2315,26 @@ const docTemplate = `{
                 }
             }
         },
+        "transaction.TransactionType": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
         "types.EditBlockchainRequest": {
             "type": "object",
             "properties": {
@@ -2081,7 +2371,7 @@ const docTemplate = `{
                 },
                 "asset_id": {
                     "type": "string",
-                    "example": "1234567890"
+                    "example": "XRP_TEST"
                 },
                 "domain": {
                     "type": "string",
@@ -2102,15 +2392,15 @@ const docTemplate = `{
                 },
                 "public_key": {
                     "type": "string",
-                    "example": "1234567890"
+                    "example": "123abc"
                 },
                 "vault_id": {
                     "type": "string",
-                    "example": "1234567890"
+                    "example": "17"
                 },
                 "wallet_id": {
                     "type": "string",
-                    "example": "1234567890"
+                    "example": "18"
                 }
             }
         },
@@ -2308,7 +2598,7 @@ const docTemplate = `{
             "properties": {
                 "acc_flags": {
                     "type": "integer",
-                    "example": 134567
+                    "example": 2
                 },
                 "alias": {
                     "type": "string",
@@ -2415,6 +2705,18 @@ const docTemplate = `{
                 "type": {
                     "type": "string",
                     "example": "NATIVE"
+                }
+            }
+        },
+        "types.SaveTransactionTypeRequest": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "TYPE-NAME"
                 }
             }
         },
