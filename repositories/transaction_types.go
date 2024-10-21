@@ -31,11 +31,17 @@ func (r *Repository) FindTransactionTypes(ctx context.Context) ([]*TransactionTy
 	return result, nil
 }
 
-func (r *Repository) FindTransactionTypeById(ctx context.Context, id string) (*TransactionType, error) {
-	var result *TransactionType
+func (r *Repository) FindTransactionTypeById(ctx context.Context, transactionTypeId string) (*TransactionType, error) {
 
-	filter := bson.M{"_id": id}
-	err := r.transactionsTypesCollection.FindOne(ctx, filter, nil).Decode(&result)
+	objectID, err := primitive.ObjectIDFromHex(transactionTypeId)
+	if err != nil {
+		l.Logger.Error("repository: error converting transaction type Id to ObjectID", zap.Error(err))
+		return nil, err
+	}
+	filter := bson.M{"_id": objectID}
+
+	var result *TransactionType
+	err = r.transactionsTypesCollection.FindOne(ctx, filter, nil).Decode(&result)
 	if err != nil {
 		l.Logger.Error("repository: error transaction type", zap.Error(err))
 		return nil, err

@@ -34,23 +34,69 @@ func NewTransactionService(repo *r.Repository) *TransactionService {
 	return &TransactionService{repo, fbCli, xrpCli}
 }
 
-func (t *TransactionService) ExecuteInternalTransaction(ctx context.Context, opType, sourceVaultId, destinaitionVaultId, assetId, amount, externalTxId string) (*fb.SubmittedTransactionResponse, error) {
-	//get account by op type and domain
-	// sypply / payments / off-ramp / on-ramp
-
-	fbAccountFrom, err := t.repo.FindFireblocksAccountByVaultId(ctx, sourceVaultId)
+func (t *TransactionService) ExecuteInternalTransaction(ctx context.Context, domain, txType, blockchainId, assetId, amount, externalTxId string) (*fb.SubmittedTransactionResponse, error) {
+	fbAccountsList, err := t.repo.FindFireblocksAccountByDomain(ctx, domain)
 	if err != nil {
-		l.Logger.Error("transaction service: error finding fireblocks source account by vault id", zap.Error(err))
-		return nil, fmt.Errorf("error finding fireblocks source account by vault id: %s", err)
+		l.Logger.Error("transaction service: error finding fireblocks accounts by domain", zap.Error(err))
+		return nil, fmt.Errorf("error finding fireblocks accounts by domain: %s", err)
 	}
 
-	fbAccountTo, err := t.repo.FindFireblocksAccountByVaultId(ctx, destinaitionVaultId)
-	if err != nil {
-		l.Logger.Error("transaction service: error finding fireblocks destination account by vault id", zap.Error(err))
-		return nil, fmt.Errorf("error finding fireblocks destination account by vault id: %s", err)
+	if len(fbAccountsList) == 0 {
+		l.Logger.Error("transaction service: no fireblocks accounts found by domain", zap.String("domain", domain))
 	}
 
-	sourceFbAccBalance, err := t.fbClient.GetVaultAccountAssetBalance(ctx, sourceVaultId, "123456")
+	walletList, err := t.repo.FindWalletsByBlockchainAndDomain(ctx, blockchainId, domain)
+	if err != nil {
+		l.Logger.Error("transaction service: error finding wallets by blockchain id and domain", zap.Error(err))
+		return nil, fmt.Errorf("error finding wallets by blockchain id %s and domain: %s", blockchainId, domain)
+	}
+
+	if len(walletList) == 0 {
+		l.Logger.Error("transaction service: no wallets found by blockchain id and domain", zap.String("blockchain_id", blockchainId), zap.String("domain", domain))
+		return nil, fmt.Errorf("no wallets found by blockchain id %s and domain: %s", blockchainId, domain)
+	}
+
+	walletsMap := make(map[string]*r.Wallet)
+
+	for _, wallet := range walletList {
+		walletsMap[wallet.ID.Hex()] = wallet
+	}
+
+	// builds the wallet params for the transaction
+	typeFrom := "SUPPLY"
+	if strings.EqualFold(txType, "OFF-RAMP") {
+		typeFrom = "PAYMENT"
+	}
+
+	var fromParams *InternalTransactionParams
+	var toParams *InternalTransactionParams
+
+	for _, fbAccount := range fbAccountsList {
+		wallet := walletsMap[fbAccount.WalletID]
+
+		txParams := &InternalTransactionParams{
+			Domain:          fbAccount.Domain,
+			BlockchinID:     fbAccount.Blockchain,
+			WalletID:        wallet.ID.Hex(),
+			FbAccVaultID:    fbAccount.VaultID,
+			FbAccAssetID:    fbAccount.AssetID,
+			FbAccName:       fbAccount.Name,
+			FbAccAlias:      fbAccount.Alias,
+			Flags:           fbAccount.Flags,
+			WalletPublicKey: fbAccount.PublicKey,
+			WalletName:      wallet.Name,
+			Address:         wallet.Address,
+			WalletType:      wallet.Type,
+		}
+
+		if wallet.Type == typeFrom {
+			fromParams = txParams
+		} else {
+			toParams = txParams
+		}
+	}
+
+	sourceFbAccBalance, err := t.fbClient.GetVaultAccountAssetBalance(ctx, fromParams.FbAccVaultID, fromParams.FbAccAssetID)
 	if err != nil {
 		if strings.Contains(err.Error(), fb.INVALID_ASSET_CODE) {
 			l.Logger.Error("transaction service: unsupported asset", zap.String("asset_id", assetId))
@@ -83,10 +129,10 @@ func (t *TransactionService) ExecuteInternalTransaction(ctx context.Context, opT
 		externalTxId = uuid.New().String()
 	}
 
-	note := fmt.Sprintf("transfering %s %s from %s to %s with external id: %s", amount, assetId, fbAccountFrom.Name, fbAccountTo.Name, externalTxId)
+	note := fmt.Sprintf("transfering %s %s from %s to %s with external id: %s", amount, assetId, fromParams.FbAccName, toParams.FbAccName, externalTxId)
 	l.Logger.Info("transaction service: executing internal transaction", zap.String("note", note))
 
-	internalTxRequest := t.fbClient.BuildInternalTransactionRequest(ctx, sourceVaultId, destinaitionVaultId, assetId, amount, note, externalTxId)
+	internalTxRequest := t.fbClient.BuildInternalTransactionRequest(ctx, fromParams.FbAccVaultID, toParams.FbAccVaultID, assetId, amount, note, externalTxId)
 
 	result, err := t.fbClient.SubmitTransaction(ctx, internalTxRequest)
 	if err != nil {

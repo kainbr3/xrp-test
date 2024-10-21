@@ -9,11 +9,12 @@ import (
 )
 
 type InternalTransferRequest struct {
-	Type             string `json:"type" example:"ON-RAMP,OFF-RAMP" validate:"required,oneof=ON-RAMP OFF-RAMP"`
-	SourceVault      string `json:"source_vault_id" example:"17" validate:"required"`
-	DestinationVault string `json:"destination_vault_id" example:"18" validate:"required"`
-	AssetId          string `json:"asset_id" example:"66f74acbba6b56108cb3e80a" validate:"required"`
-	Amount           string `json:"amount" example:"2.75" validate:"required"`
+	Domain       string `json:"domain" example:"GET-BRAZA" validate:"required,oneof=GET-BRAZA BRAZA-ON BRAZA-DESK"`
+	Type         string `json:"type" example:"ON-RAMP,OFF-RAMP" validate:"required,oneof=ON-RAMP OFF-RAMP"`
+	BlockchainId string `json:"blockchain_id" example:"66f6fe7eccc6398d39e981f9" validate:"required"`
+	AssetId      string `json:"asset_id" example:"66f74acbba6b56108cb3e80a" validate:"required"`
+	Amount       string `json:"amount" example:"2.75" validate:"required"`
+	ExternalId   string `json:"external_id" example:"ee362663-757d-4a0f-853d-925428c6de88"`
 }
 
 func (i *InternalTransferRequest) IsValid() error {

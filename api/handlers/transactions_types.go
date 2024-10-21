@@ -67,6 +67,7 @@ func (t TransactionsTypesHandler) GetTransactionsTypes(ctx *fiber.Ctx) error {
 // @Tags TransactionsTypes
 // @ID get-transaction-type-by-id
 // @Produce json
+// @Param id path string true "Transaction Type ID"
 // @Success 200 {object} transaction.TransactionType
 // @Failure 400 {object} types.ErrorMessage
 // @Failure 404 {object} types.ErrorMessage
@@ -155,6 +156,7 @@ func (t TransactionsTypesHandler) DeleteTransactionType(ctx *fiber.Ctx) error {
 // @ID patch-transaction-type
 // @Accept json
 // @Produce json
+// @Param id path string true "Transaction Type ID"
 // @Param request body types.SaveTransactionTypeRequest true "transaction Type"
 // @Success 200 {object} types.Result
 // @Failure 400 {object} types.ErrorMessage

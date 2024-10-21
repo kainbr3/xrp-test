@@ -5,8 +5,6 @@ import (
 	cfg "crypto-braza-tokens-api/configs"
 	l "crypto-braza-tokens-api/utils/logger"
 
-	"errors"
-
 	"github.com/gofiber/fiber/v2"
 	"go.uber.org/zap"
 )
@@ -30,12 +28,17 @@ func (t TransactionsHandler) PostTransactions(ctx *fiber.Ctx) error {
 		return BadRequestWrapper(ctx, "transaction", err)
 	}
 
-	operator := ctx.Get("client-id")
-	if operator == "" {
-		return BadRequestWrapper(ctx, "transaction", errors.New("required head missing: client-id"))
+	result, err := t.Resources.TransactionService.ExecuteInternalTransaction(ctx.UserContext(), request.Domain, request.Type, request.BlockchainId, request.AssetId, request.Amount, request.ExternalId)
+	if err != nil {
+		return InternalErrorWrapper(ctx, "transaction", err)
 	}
 
-	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{"message": "ok"})
+	// operator := ctx.Get("client-id")
+	// if operator == "" {
+	// 	return BadRequestWrapper(ctx, "transaction", errors.New("required head missing: client-id"))
+	// }
+
+	return ctx.Status(fiber.StatusOK).JSON(result)
 }
 
 func (t TransactionsHandler) PostWebhook(ctx *fiber.Ctx) error {
