@@ -155,7 +155,7 @@ func (t TransactionsTypesHandler) DeleteTransactionType(ctx *fiber.Ctx) error {
 // @ID patch-transaction-type
 // @Accept json
 // @Produce json
-// @Param request body types.SavetransactionTypeRequest true "transaction Type"
+// @Param request body types.SaveTransactionTypeRequest true "transaction Type"
 // @Success 200 {object} types.Result
 // @Failure 400 {object} types.ErrorMessage
 // @Failure 404 {object} types.ErrorMessage
