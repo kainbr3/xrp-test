@@ -1,5 +1,5 @@
 # localhost development files
-localhost_setup/
+# localhost_setup/
 
 # IDE/editor specific files
 .vscode/
@@ -10,13 +10,13 @@ localhost_setup/
 
 # Security files
 # global-bundle.pem # allow this one to be part of the repo content
-secret.key
+# secret.key
 
 # Logs
 *.log
 
 # Environment variables
-.env
+# .env
 
 # Coverage reports
 coverage.out
